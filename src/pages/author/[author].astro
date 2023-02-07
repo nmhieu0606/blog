@@ -1,0 +1,36 @@
+---
+import { getCollection } from "astro:content";
+export async function getStaticPaths(){
+    
+    return [
+        {
+            params:{author:"hieu1"},
+           
+        },
+        {
+            params:{author:"hieu2"},
+            
+        },
+        {
+            params:{author:"hieu3"},
+           
+        },
+    ]
+}
+const allPost=await getCollection("blog");
+const {author}=Astro.params;
+const Post=allPost.filter(post=>post.data.author===author);
+---
+<div class="grid gird-cols-3 gap-3">
+		{
+			Post.map((item)=>(
+				<h1 >Danh muc: <a class="bg-blue-500 w-max" href={`/category/${item.data.category}`}>{item.data.category}</a></h1>
+				<h1>Created by <a href={`/author/${item.data.author}/`}>{item.data.author}</a></h1>
+				
+				<h2>{item.data.title}</h2>
+				<p>{item.data.description}</p>
+				<a class="w-full bg-green-500" href={`/blog/${item.slug}/`}>Read</a>
+				
+			))
+		}
+</div>

@@ -1,0 +1,30 @@
+---
+import { log } from "astro/dist/core/logger/core";
+import { CollectionEntry, getCollection } from "astro:content";
+import {formatBlogPosts} from "../js/utils";
+import Card from "../../components/card.astro";
+import MainLayout from "../layouts/MainLayout.astro";
+const blogPost=await getCollection("blog",({data})=>{
+	return !data.draft && data.date <new Date();
+});
+const allPosts = await getCollection("blog");
+const format:CollectionEntry<"blog">[]=formatBlogPosts(allPosts,{
+	limit:3
+})
+
+---	
+<MainLayout title="Trang chủ" description="sddks">
+			
+		<div class="grid gird-cols-4 gap-2">
+		{
+			format.map((item)=>(
+				<Card title={item.data.title} content={item.data.description} href={`/blog/${item.slug}`} author={item.data.author}
+				 category={item.data.category}></Card>
+				
+				
+			))
+		}
+		</div>
+</MainLayout>
+	
+

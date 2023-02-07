@@ -1,0 +1,28 @@
+---
+export interface Props {
+  title: string;
+  content: string;
+  href: string;
+  img: string;
+ 
+}
+const { title, content, href, img} = Astro.props;
+---
+
+
+<a href={href} class="w-full h-12000px flex items-center bg-white border border-gray-200 hover:bg-gray-100 mt-20">
+  <img class="w-1/2" src={img} alt="">
+  <div class="flex flex-col justify-between p-4 leading-normal">
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-black">{title}</h5>
+      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{content}</p>
+  </div>
+</a>
+<style>
+    .card2{
+        display: flex;
+        margin: 0;
+        padding: 0;
+        border: 1px solid #ddddddd;
+        height:50vh;
+    }
+</style>

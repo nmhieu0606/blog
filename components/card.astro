@@ -1,0 +1,30 @@
+---
+
+import Button from "./ui/button.astro";
+export interface Props {
+  title: string;
+  img?: string;
+  content: string;
+  href: string;
+  author:string;
+  category:string;
+}
+const { title, img, content, href,author,category } = Astro.props;
+---
+
+<div class="bg-gray-400 flex justify-center md:flex hover:animate-bounce">
+  <h1><a href={`/category/${category}/`}>Chủ đề: {category}</a></h1>
+  <small>created by <a href={`/author/${author}/`}>{author}</a></small>
+  <a class=" hover:bg-gray-400 rounded-xl" href={href}>
+    <div class="rounded-lg shadow-lg bg-transparent max-w-sm">
+      <img class="img rounded-t-lg " src={img} />
+
+      <div class="p-6">
+        <h5 class="title text-gray-900 text-xl font-medium mb-2 ">{title}</h5>
+        <p class="content text-gray-700 text-base mb-4 ">
+          {content}
+        </p>
+      </div>
+    </div>
+  </a>
+</div>

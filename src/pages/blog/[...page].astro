@@ -1,0 +1,29 @@
+---
+import { formatBlogPosts } from "../../js/utils";
+import { getCollection,CollectionEntry } from "astro:content";
+import Pagination from "../../../components/Pagination.astro";
+export async function getStaticPaths({paginate}){
+    const allPost=await getCollection("blog");
+    const Post:CollectionEntry<"blog">[]=formatBlogPosts(allPost);
+    return  paginate(Post,{
+        pageSize:1,
+    })
+}
+const {page}=Astro.props;
+
+---
+
+{
+    page.data.map((item)=>(
+        <h1 >Danh muc: <a class="bg-blue-500 w-max" href={`/category/${item.data.category}`}>{item.data.category}</a></h1>
+        <h1>Created by <a href={`/author/${item.data.author}/`}>{item.data.author}</a></h1>
+        
+        <h2>{item.data.title}</h2>
+        <p>{item.data.description}</p>
+        <a class="bg-green-500 " href={`/blog/${item.slug}/`}>Read</a>
+
+        <Pagination prevUrl={page.url.prev} nextUrl={page.url.next} />
+        
+    ))
+    
+}
